@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brainrot Clicker</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="game.js" defer></script>
+</head>
+<body>
+    <main class="game">
+        <div class="hud">
+            <h1>Brainrot Clicker</h1>
+            <div class="coins" aria-live="polite">
+                <img src="graphics/coin_stack.png" alt="">
+                <span id="coin-count">0</span>
+            </div>
+        </div>
+        <div class="meta" id="tier-line">Tier: Wooden | Click Power: x1</div>
+
+        <div class="layout">
+            <aside class="panel shop-panel">
+                <h2>Shop</h2>
+                <div class="shop-list">
+                    <article class="shop-item">
+                        <img src="graphics/mousepointer_plain.png" alt="">
+                        <div>
+                            <p class="shop-title">Standard</p>
+                            <p class="shop-sub">+1 click/s | Cost: <span id="standard-cost">50</span></p>
+                            <p class="shop-sub">Owned: <span id="standard-owned">0</span></p>
+                        </div>
+                        <button class="buy-btn" id="buy-standard" aria-label="Buy standard auto clicker">+</button>
+                    </article>
+                    <article class="shop-item">
+                        <img src="graphics/mousepointer_platinum.png" alt="">
+                        <div>
+                            <p class="shop-title">Platinum</p>
+                            <p class="shop-sub">+10 clicks/s | Cost: <span id="platinum-cost">400</span></p>
+                            <p class="shop-sub">Owned: <span id="platinum-owned">0</span></p>
+                        </div>
+                        <button class="buy-btn" id="buy-platinum" aria-label="Buy platinum auto clicker">+</button>
+                    </article>
+                </div>
+            </aside>
+
+            <section class="game-area panel" id="game-area">
+                <button class="target" id="target" aria-label="Click to earn coins">
+                    <img src="graphics/ttts_wooden.png" alt="Wooden target" id="target-image">
+                </button>
+                <div class="effects" id="effects" aria-hidden="true"></div>
+            </section>
+
+            <aside class="panel prestige-panel">
+                <h2>Prestige</h2>
+                <div id="prestige-content">
+                    <div class="prestige-preview" id="prestige-preview">
+                        <img src="graphics/ttts_golden.png" alt="Next tier preview" id="next-tier-image">
+                    </div>
+                    <p class="prestige-meta" id="prestige-name">Next: Golden</p>
+                    <p class="prestige-meta" id="prestige-requirement">Requires: 5,000 coins</p>
+                    <p class="prestige-meta" id="prestige-effect">On prestige: remove clickers, click value doubles.</p>
+                    <button class="prestige-btn" id="prestige-btn" type="button" disabled>Prestige</button>
+                </div>
+                <p class="cps-line">Auto CPS: <span id="auto-cps">0</span></p>
+            </aside>
+        </div>
+
+        <p class="save-note">Progress is saved locally in this browser.</p>
+    </main>
+</body>
+</html>
