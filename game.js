@@ -3,9 +3,9 @@
 
     var SAVE_KEY = "brainrot_clicker_save_v1";
     var TIERS = [
-        { name: "Wooden", image: "graphics/ttts_wooden.png", prestigeRequirement: 5000 },
-        { name: "Golden", image: "graphics/ttts_golden.png", prestigeRequirement: 60000 },
-        { name: "Diamond", image: "graphics/ttts_diamond.png", prestigeRequirement: null }
+        { name: "Wooden", image: "graphics/ttts_wooden.png", unlockRequirement: 0 },
+        { name: "Golden", image: "graphics/ttts_golden.png", unlockRequirement: 5000 },
+        { name: "Diamond", image: "graphics/ttts_diamond.png", unlockRequirement: 60000 }
     ];
     var CLICKERS = {
         standard: { cost: 50, clicksPerSecond: 1 },
@@ -62,6 +62,14 @@
 
     function getNextTier() {
         return TIERS[state.tierIndex + 1] || null;
+    }
+
+    function getNextTierRequirement() {
+        var nextTier = getNextTier();
+        if (!nextTier || !Number.isFinite(nextTier.unlockRequirement)) {
+            return null;
+        }
+        return nextTier.unlockRequirement;
     }
 
     function getAutoClicksPerSecond() {
@@ -131,8 +139,8 @@
             return;
         }
 
-        var req = currentTier.prestigeRequirement;
-        var unlocked = state.coins >= req;
+        var req = getNextTierRequirement();
+        var unlocked = req !== null && state.coins >= req;
 
         nextTierImageEl.src = nextTier.image;
         nextTierImageEl.alt = nextTier.name + " tier preview";
@@ -375,16 +383,17 @@
     }
 
     function onPrestige() {
-        var currentTier = getCurrentTier();
         var nextTier = getNextTier();
+        var req = getNextTierRequirement();
         if (!nextTier) {
             return;
         }
-        if (state.coins < currentTier.prestigeRequirement) {
+        if (req === null || state.coins < req) {
             return;
         }
 
         state.tierIndex += 1;
+        state.coins = 0;
         state.clickers.standard = 0;
         state.clickers.platinum = 0;
         pendingManualCoins = 0;

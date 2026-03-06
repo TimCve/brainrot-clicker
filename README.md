@@ -23,7 +23,7 @@
 - Tiers are defined in `TIERS`:
   - name
   - image path
-  - prestige requirement
+  - `unlockRequirement` (coins needed to unlock that tier)
 - Auto clickers are defined in `CLICKERS`:
   - purchase cost
   - clicks per second
